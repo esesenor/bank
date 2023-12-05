@@ -1,17 +1,11 @@
 import { TransferService } from "../transfers/transfers.service.js";
 import { UserService } from "./users.service.js";
+import bcrypt from "bcrypt"
 
 
 export const signup = async (req, res) => {
   try {
     const { name, password } = req.body;
-
-    if (!name || !password) {
-      return res.status(400).json({
-        status: 'error',
-        message: 'Name and password are required.'
-      });
-    }
 
     const accountNumber = Math.floor(100000 + Math.random() * 900000);
     const hashedPassword = await bcrypt.hash(password, 10);
