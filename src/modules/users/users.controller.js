@@ -36,13 +36,6 @@ export const signup = async (req, res) => {
     try {
       const { accountNumber, password } = req.body;
   
-      if (!accountNumber || !password) {
-        return res.status(400).json({
-          status: 'error',
-          message: 'AccountNumber and password are required....'
-        });
-      }
-  
       const user = await UserService.login({ accountNumber });
   
       if (!user || !(await bcrypt.compare(password, user.password))) {
