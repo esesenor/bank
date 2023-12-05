@@ -42,6 +42,7 @@ export const signup = async (req, res) => {
           message: 'Validation error in the database; Account or Password invalid ~_~',
         });
       }
+
       return res.status(200).json({
         message: 'ᕕ(⌐■_■)ᕗ Are you logged ♪♬',
         user
@@ -73,7 +74,7 @@ export const signup = async (req, res) => {
   
       return res.status(200).json({
         message: "Transaction history retrieved successfully (⌐■_■)..|..(■_■~)",
-        transactions: transactionHistory,
+        transactionHistory
       });
     }catch(error){
       console.error(error)

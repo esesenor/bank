@@ -1,4 +1,5 @@
 import Transfer from "./transfers.model.js";
+import { sequelize } from "../../config/database/database.js";
 
 export class TransferService {
 

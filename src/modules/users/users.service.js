@@ -16,13 +16,22 @@ export class UserService {
     });
   }
 
-  static async findOneAccount(accountNumber){
-    return await User.findOne({
-      where: {
-        status: 'active',
-        accountNumber: accountNumber 
+  static async findOneAccount(accountNumber) {
+    try {
+      const user = await User.findOne({
+        where: {
+          status: 'active',
+          accountNumber: accountNumber,
+        },
+      });
+      if (!user) {
+        throw new Error('User not found (⊙_☉)');
       }
-    })
+      return user;
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
   }
 
   static async updateAmount(account, newAmount){
