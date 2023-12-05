@@ -1,6 +1,5 @@
 import { TransferService } from "../transfers/transfers.service.js";
 import { UserService } from "./users.service.js";
-import bcrypt from "bcrypt"
 
 
 export const signup = async (req, res) => {
@@ -8,9 +7,8 @@ export const signup = async (req, res) => {
     const { name, password } = req.body;
 
     const accountNumber = Math.floor(100000 + Math.random() * 900000);
-    const hashedPassword = await bcrypt.hash(password, 10);
 
-    const user = await UserService.create({ name, password: hashedPassword, accountNumber });
+    const user = await UserService.create({ name, password, accountNumber });
 
     return res.status(201).json(user);
   } catch (error) {
@@ -36,15 +34,14 @@ export const signup = async (req, res) => {
     try {
       const { accountNumber, password } = req.body;
   
-      const user = await UserService.login({ accountNumber });
-  
-      if (!user || !(await bcrypt.compare(password, user.password))) {
+      const user = await UserService.login({ accountNumber, password });
+    
+      if(!user){
         return res.status(400).json({
           status: 'error',
-          message: 'AccountNumber or password is not valid...'
+          message: 'Validation error in the database; Account or Password invalid ~_~',
         });
       }
-  
       return res.status(200).json({
         message: 'ᕕ(⌐■_■)ᕗ Are you logged ♪♬',
         user

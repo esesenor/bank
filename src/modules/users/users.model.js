@@ -22,12 +22,7 @@ const User = sequelize.define("Users", {
   },
   password: {
     type: DataTypes.STRING,
-    allowNull: false,
-    set(value) {
-      const saltRounds = 10;
-      const hashedPassword = bcrypt.hashSync(value, saltRounds);
-      this.setDataValue("password", hashedPassword);
-    },
+    allowNull: false
   },
   amount: {
     type: DataTypes.FLOAT,

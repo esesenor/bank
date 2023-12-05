@@ -1,5 +1,4 @@
 import User from "./users.model.js";
-import bcrypt from "bcrypt"
 
 export class UserService {
 
@@ -8,18 +7,13 @@ export class UserService {
   }
 
   static async login(data) {
-    const user = await User.findOne({
+    return await User.findOne({
       where: {
-        status: 'active',
         accountNumber: data.accountNumber,
+        password: data.password,
+        status: 'active',
       },
     });
-
-    if (user && bcrypt.compareSync(data.password, user.password)) {
-      return user;
-    }
-
-    return null;
   }
 
   static async findOneAccount(accountNumber){

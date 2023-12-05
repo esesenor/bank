@@ -16,12 +16,12 @@ static async getTransactionHistory(id) {
       where: {
         [sequelize.Op.or]: [
           { senderUserId: id },
-          { reciverUserId: id },
+          { receiverUserId: id },
         ],
       },
       include: [
-        { model: User, as: "Sender", attributes: ["name", "account"] },
-        { model: User, as: "Recipient", attributes: ["name", "account"] },
+        { model: User, as: "Sender", attributes: ["name", "accountNumber"] },
+        { model: User, as: "Recipient", attributes: ["name", "accountNumber"] },
       ],
     });
 
